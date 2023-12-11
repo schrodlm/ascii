@@ -1,5 +1,8 @@
 package InputParser
 
+import Config.AsciiArtConfig
+
+import java.nio.file.Path
 import scala.sys.exit
 
 class CommandLineParser(val args: Array[String]) extends Parser{
@@ -13,6 +16,7 @@ class CommandLineParser(val args: Array[String]) extends Parser{
 
     if(args.length == 0) println(usage)
 
+
     val options = nextArg(Map(), args.toList)
     println(options)
 
@@ -23,10 +27,23 @@ class CommandLineParser(val args: Array[String]) extends Parser{
 
     list match {
       case Nil => map
-      case "--arg1" :: value :: tail =>
-        nextArg(map ++ Map("arg1" -> value.toInt), tail)
-      case "--arg2" :: value :: tail =>
-        nextArg(map ++ Map("arg2" -> value.toInt), tail)
+
+      case "--image-random" :: tail =>
+      {
+        nextArg(map ++ Map("image-random" -> true), tail)
+      }
+
+      case "--image" :: path :: tail =>
+      {
+        nextArg(map ++ Map("image" -> path), tail)
+      }
+
+      case "--table" :: name :: tail =>
+      {
+        nextArg(map ++ Map("table" -> name), tail)
+      }
+      case "--custom-table" :: Array
+
       case unknown :: _ =>
         println("Unknown option " + unknown)
         exit(1);
