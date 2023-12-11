@@ -1,0 +1,5 @@
+package Filter
+
+trait Filter {
+
+}
