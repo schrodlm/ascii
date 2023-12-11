@@ -9,7 +9,7 @@ object Main extends App {
     println("Provide image path.")
     throw new RuntimeException("Provide image path.")
   }
-  val image : Image = ImageFactory.createImage("/home/schrodlm/dev/img_for_scala/luffy.jpg")
+  val image : Image = ImageFactory.createImage("D:\\dev\\university\\images_for_asciiart\\image_2.jpg")
   println(s"${image.getWidth()} x ${image.getHeight()}");
 
 }
