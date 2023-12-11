@@ -1,15 +1,23 @@
 package Image
 
-trait Image {
+class Image(width: Int, height: Int, data: Array[Int]) {
 
-  protected val width: Int
-  protected val height: Int
-  protected val data: Array[Int]
-  def rotate(): Image;
-  def save(): Unit;
+  /**
+   * TODO: This would be better in some kind of filter (maybe visitor pattern?)
+   *
+   *
+   *   def rotate(): Image;
+   *   def save(): Unit;
+  */
 
-  def getPixel(x: Int, y: Int): Int
-  def getWidth(): Int
-  def getHeight(): Int
+  def getPixel(x: Int, y: Int): Int = {
+    data(x * y)
+  }
+  def getWidth(): Int = {
+    width
+  }
+  def getHeight(): Int = {
+    height
+  }
 
 }

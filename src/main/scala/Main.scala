@@ -1,6 +1,6 @@
 package Main
 
-import Image.ImageLoader
+import Image.{Image, ImageFactory}
 
 
 object Main extends App {
@@ -9,9 +9,7 @@ object Main extends App {
     println("Provide image path.")
     throw new RuntimeException("Provide image path.")
   }
+  val image : Image = ImageFactory.createImage("/home/schrodlm/dev/img_for_scala/luffy.jpg")
+  println(s"${image.getWidth()} x ${image.getHeight()}");
 
-  val imgLoader: ImageLoader = new ImageLoader;
-  imgLoader.load("/home/schrodlm/dev/img_for_scala/luffy.jpg");
-
-  val test: Int = 19;
 }
