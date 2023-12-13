@@ -1,6 +1,6 @@
 package Filter
 import Image.Image
 
-class FlipFilter extends Filter{
+class FlipFilter(val axis : String) extends Filter{
   override def apply(image: Image): Unit = ???
 }
