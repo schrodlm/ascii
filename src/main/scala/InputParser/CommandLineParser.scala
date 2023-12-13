@@ -5,6 +5,14 @@ import Filter.{BrightnessFilter, FlipFilter, FontAspectRatioFilter, InvertFilter
 
 import scala.sys.exit
 
+/**
+ * A command line parser for configuring ASCII art generation.
+ *
+ * This parser interprets command line arguments to configure various aspects of ASCII art generation,
+ * including image sources, filters, and output options.
+ *
+ * @param args the command line arguments
+ */
 class CommandLineParser(val args: Array[String]) extends Parser {
 
   val usage =
@@ -12,6 +20,12 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       Usage: parrentmatching [--arg1 num] [--arg2 num] filename
     """
 
+  /**
+   * Parses the command line arguments to configure ASCII art generation.
+   *
+   * This method processes each command line argument and applies the corresponding
+   * configuration to the AsciiArtConfigBuilder.
+   */
   override def parse(): Unit = {
 
     if (args.length == 0) println(usage)
@@ -23,6 +37,13 @@ class CommandLineParser(val args: Array[String]) extends Parser {
     checkNecessaryInputs()
   }
 
+  /**
+   * Recursively processes command line arguments to configure the ASCII art generator.
+   *
+   * @param configBuilder the current state of the ASCII art configuration builder
+   * @param list          the remaining command line arguments to process
+   * @return the updated configuration builder
+   */
   def nextArg(configBuilder: AsciiArtConfigBuilder, list: List[String]): AsciiArtConfigBuilder = {
 
     list match {
@@ -86,6 +107,12 @@ class CommandLineParser(val args: Array[String]) extends Parser {
     }
   }
 
+  /**
+   * Parses a string representing font aspect ratio in the format "x:y".
+   *
+   * @param input the input string to parse
+   * @return an Option containing a tuple (Int, Int) if parsing is successful, None otherwise
+   */
   def parseFontAspectRatio(input: String): Option[(Int, Int)] = {
     input.split(":") match {
       case Array(a, b) =>
@@ -96,10 +123,6 @@ class CommandLineParser(val args: Array[String]) extends Parser {
         }
       case _ => None
     }
-  }
-
-  def checkNecessaryInputs(): Boolean = {
-    true
   }
 
 }
