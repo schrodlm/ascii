@@ -1,6 +1,6 @@
 package Image.ImageStrategy
 
-import Image.Image
+import Image.{Image, ImageConverter}
 
 import java.awt.image.BufferedImage
 import java.io.File
@@ -18,20 +18,6 @@ class RandomImageStrategy extends ImageStrategy {
     val image = ImageIO.read(inputStream)
     inputStream.close()
 
-    convertToImage(image)
+    ImageConverter.fromBufferedImage(image)
   }
-
-  def convertToImage(image : BufferedImage) : Image = {
-
-    val width: Int = image.getWidth()
-    val height: Int = image.getHeight()
-
-    //Initialize appropriate sized array
-    val pixelArray: Array[Int] = new Array[Int](height * width)
-
-    image.getRGB(0, 0, width, height, pixelArray, 0, width);
-
-    new Image(width, height, pixelArray);
-  }
-
 }
