@@ -1,6 +1,6 @@
 package Main
 
-import Config.AsciiArtConfig
+import Config.{AsciiArtConfig, PathImageSource}
 import Image.{Image, ImageFactory}
 import InputParser.CommandLineParser
 
@@ -15,7 +15,9 @@ object Main{
     val config: AsciiArtConfig = parser.parse().getOrElse(null)
     if (config == null) return
 
-    val image: Image = ImageFactory.createImage("D:\\dev\\university\\images_for_asciiart\\image_2.jpg")
+    val image: Image = ImageFactory.createImage(config.image_source)
+
     println(s"${image.getWidth()} x ${image.getHeight()}");
+
   }
 }

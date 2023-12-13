@@ -13,6 +13,7 @@ class AsciiArtConfigBuilder {
   private var table: Table = new DefaultTable()
   private var filters: Array[Filter] = Array(new IdentityFilter())
 
+  private var imageProvided : Boolean = false
   // ========================= Builder setter methods =============================
 
   /**
@@ -22,6 +23,11 @@ class AsciiArtConfigBuilder {
    * @return the updated builder instance
    */
   def withImageSource(source: ImageSource) : AsciiArtConfigBuilder = {
+    if(imageProvided.equals(true)) {
+      throw new IllegalArgumentException("Provided more than one image argument")
+    }
+    imageProvided = true
+
     this.imageSource = Some(source)
     this
   }
