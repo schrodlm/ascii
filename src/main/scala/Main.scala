@@ -17,7 +17,7 @@ object Main{
 
     val image: Image = ImageFactory.createImage(config.image_source)
 
-    println(s"${image.getWidth()} x ${image.getHeight()}");
+    println(s"${image.getWidth()} x ${image.getHeight()}")
 
   }
 }
