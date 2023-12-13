@@ -1,6 +1,5 @@
 package Config
 
-package Table
 
 /**
  * Represents a character table used in ASCII art generation.
@@ -11,7 +10,6 @@ package Table
  * @param chars An array of characters used for ASCII art conversion.
  */
 class Table(val chars: Array[Char])
-
 
 /**
  * A default character table for ASCII art generation.
