@@ -4,8 +4,8 @@ import Image.Image
 
 class IdentityFilter() extends Filter
 {
-  override def apply(image: Image): Unit =
+  override def apply(image: Image): Image =
   {
-    return image
+    image
   }
 }

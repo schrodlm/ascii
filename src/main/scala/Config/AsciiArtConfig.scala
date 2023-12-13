@@ -1,8 +1,6 @@
 package Config
 
-import Filter.{Filter, IdentityFilter}
-
-import java.nio.file.Path
+import Filter.{Filter}
 
 class AsciiArtConfig(val image_source: ImageSource,
                      val image_output: ImageOutput,

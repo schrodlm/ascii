@@ -1,6 +1,6 @@
 package InputParser
 
-import Config.{AsciiArtConfigBuilder, ConsoleImageOutput, PathImageOutput, PathImageSource, RandomImageSource}
+import Config.{AsciiArtConfig, AsciiArtConfigBuilder, ConsoleImageOutput, PathImageOutput, PathImageSource, RandomImageSource}
 import Filter.{BrightnessFilter, FlipFilter, FontAspectRatioFilter, InvertFilter, RotationFilter, ScaleFilter}
 
 import scala.sys.exit
@@ -17,8 +17,34 @@ class CommandLineParser(val args: Array[String]) extends Parser {
 
   val usage =
     """
-      Usage: parrentmatching [--arg1 num] [--arg2 num] filename
-    """
+      |Usage: asciiart [options] [source]
+      |
+      |Mandatory Options:
+      |  One of the following image source options must be specified:
+      |    --image-random                 Use a random image as the source.
+      |    --image [path]                 Specify the path of the image file to use as the source.
+      |
+      |  One of the following output options must be specified:
+      |    --output-console               Output the ASCII art to the console.
+      |    --output-file [path]           Output the ASCII art to a file at the specified path.
+      |
+      |Optional Options:
+      |  --table [name]                 Specify the name of the predefined character table (e.g., 'default', 'mathematical').
+      |  --custom-table [chars]         Define a custom character table.
+      |  --rotate [degrees]             Apply rotation to the image (degrees must be an integer).
+      |  --scale [value]                Scale the image by a specified factor (value must be an integer).
+      |  --invert                       Apply an inversion filter to the image.
+      |  --flip [axis]                  Flip the image along a specified axis ('horizontal' or 'vertical').
+      |  --brightness [value]           Adjust the brightness of the image (value must be an integer).
+      |  --font-aspect-ratio [x:y]      Set the font aspect ratio with two integers (e.g., '1:2').
+      |
+      |Examples:
+      |  asciiart --image /path/to/image.jpg --rotate 90 --output-console
+      |  asciiart --image-random --brightness 5 --output-file /path/to/output.txt
+      |
+      |Note:
+      |  Some options might require additional arguments.
+   """.stripMargin
 
   /**
    * Parses the command line arguments to configure ASCII art generation.
@@ -26,13 +52,16 @@ class CommandLineParser(val args: Array[String]) extends Parser {
    * This method processes each command line argument and applies the corresponding
    * configuration to the AsciiArtConfigBuilder.
    */
-  override def parse(): Unit = {
+  override def parse(): Option[AsciiArtConfig] = {
 
-    if (args.length == 0) println(usage)
+    if (args.length == 0 || args.contains("--help")) {
+      println(usage)
+      return None
+    }
 
     val configBuilder: AsciiArtConfigBuilder = new AsciiArtConfigBuilder()
-    val options = nextArg(configBuilder, args.toList)
-    println(options)
+    val filledConfigBuilder : AsciiArtConfigBuilder =  nextArg(configBuilder, args.toList)
+    Some(filledConfigBuilder.build())
   }
 
   /**

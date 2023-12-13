@@ -83,7 +83,7 @@ class AsciiArtConfigBuilder {
    * @return the updated builder instance
    */
   def addFilter(filter: Filter ) : AsciiArtConfigBuilder = {
-    this.filters = this.filters ++ filter
+    this.filters = this.filters :+ filter
     this
   }
 

@@ -1,5 +1,7 @@
 package InputParser
 
+import Config.AsciiArtConfig
+
 trait Parser {
-  def parse()
+  def parse() : Option[AsciiArtConfig]
 }
