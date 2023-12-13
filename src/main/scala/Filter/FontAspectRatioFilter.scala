@@ -1,6 +1,6 @@
 package Filter
 import Image.Image
 
-class RotationFilter extends Filter{
+class FontAspectRatioFilter extends Filter{
   override def apply(image: Image): Unit = ???
 }
