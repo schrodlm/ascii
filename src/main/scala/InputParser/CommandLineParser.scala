@@ -33,8 +33,6 @@ class CommandLineParser(val args: Array[String]) extends Parser {
     val configBuilder: AsciiArtConfigBuilder = new AsciiArtConfigBuilder()
     val options = nextArg(configBuilder, args.toList)
     println(options)
-
-    checkNecessaryInputs()
   }
 
   /**
