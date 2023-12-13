@@ -1,6 +1,6 @@
 package InputParser
 
-import Config.AsciiArtConfig
+import Config.{AsciiArtConfig, AsciiArtConfigBuilder, PathImageSource, RandomImageSource, Table}
 
 import java.nio.file.Path
 import scala.sys.exit
@@ -16,34 +16,41 @@ class CommandLineParser(val args: Array[String]) extends Parser{
 
     if(args.length == 0) println(usage)
 
-
-    val options = nextArg(Map(), args.toList)
+    val configBuilder : AsciiArtConfigBuilder = new AsciiArtConfigBuilder()
+    val options = nextArg(configBuilder, args.toList)
     println(options)
 
     checkNecessaryInputs()
   }
 
-  def nextArg(map: Map[String,Any], list: List[String]): Map[String,Any] = {
+  def nextArg(configBuilder: AsciiArtConfigBuilder, list: List[String]): AsciiArtConfigBuilder = {
 
     list match {
-      case Nil => map
+      case Nil => configBuilder
 
       case "--image-random" :: tail =>
       {
-        nextArg(map ++ Map("image-random" -> true), tail)
+        nextArg(configBuilder.withImageSource(RandomImageSource()), tail)
       }
 
       case "--image" :: path :: tail =>
       {
-        nextArg(map ++ Map("image" -> path), tail)
+        nextArg(configBuilder.withImageSource(PathImageSource(path)), tail)
       }
 
       case "--table" :: name :: tail =>
       {
-        nextArg(map ++ Map("table" -> name), tail)
+        nextArg(configBuilder.withTable(name), tail)
       }
-      case "--custom-table" :: Array
+      case "--custom-table" :: chars :: tail =>
+      {
+        val table_chars : Array[Char] = chars.toCharArray()
+        nextArg(configBuilder.withTable(table_chars), tail)
+      }
 
+      case "--rotate" :: degrees :: tail => {
+
+      }
       case unknown :: _ =>
         println("Unknown option " + unknown)
         exit(1);
