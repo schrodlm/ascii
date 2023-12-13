@@ -17,6 +17,8 @@ class ImageIOLoadingStrategy(path : String) extends LoadingImageStrategy {
 
     img.getRGB(0, 0, width, height, pixelArray, 0, width);
 
+    img.getWidth()
+
     new Image(width, height, pixelArray);
   }
 }

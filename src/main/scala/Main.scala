@@ -16,8 +16,5 @@ object Main{
     if (config == null) return
 
     val image: Image = ImageFactory.createImage(config.image_source)
-
-    println(s"${image.getWidth()} x ${image.getHeight()}");
-
   }
 }
