@@ -1,8 +1,8 @@
 package Image.ImageStrategy
 
-import Image.Image
+import Image.RGBImage
 
 trait ImageStrategy{
 
-  def createImage() : Image
+  def createImage() : RGBImage
 }

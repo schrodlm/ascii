@@ -7,7 +7,7 @@ import Image.ImageStrategy.RandomImageStrategy
 /**
  * Factory object for creating images based on different sources.
  */
-object ImageFactory {
+object RGBImageFactory {
 
   /**
    * Creates an image based on the specified image source.
@@ -19,7 +19,7 @@ object ImageFactory {
    * @return The created Image.
    * @throws IllegalArgumentException if an unsupported image format is provided.
    */
-  def createImage(input: ImageSource): Image = {
+  def createRGBImage(input: ImageSource): RGBImage = {
 
     input match {
       // Handle the case where the image source is a file path.

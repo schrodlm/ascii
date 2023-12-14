@@ -1,6 +1,6 @@
 package Filter
-import Image.Image
+import Image.RGBImage
 
 class ScaleFilter(val scale : Int) extends Filter{
-  override def apply(image: Image): Image = ???
+  override def apply(image: RGBImage): RGBImage = ???
 }
