@@ -11,19 +11,27 @@ package Config
  */
 class Table(val chars: Array[Char])
 
-/**
- * A default character table for ASCII art generation.
- *
- * This table uses a predefined set of characters for a general-purpose ASCII art style.
- */
-class DefaultTable() extends Table(Array('#', '*', 'a'))
 
 /**
- * A mathematical character table for ASCII art generation.
- *
- * This table uses mathematical symbols.
+ * The `DefaultTable` class extends the `Table` class with a predefined set of characters.
+ * These characters are typically used for creating simple ASCII art representations,
+ * where each character represents a different shade of gray, from darkest to lightest.
  */
-class MathematicalTable() extends Table(Array('+', '*', '-', '/'))
+class DefaultTable() extends Table(Array('@','%','#','*','+','=','-',':','.', ' '))
+
+
+/**
+ * The `PaulBourkeTable` class extends the `Table` class with a specific set of characters
+ * designed by Paul Bourke. This set of characters is arranged to represent different
+ * levels of intensity, from the lightest to the darkest, allowing for a more detailed
+ * and nuanced ASCII art representation. This character set is often used in ASCII art
+ * rendering algorithms for its ability to closely mimic grayscale images.
+ */
+class PaulBorkesTable() extends Table(Array(
+  '$', '@', 'B', '%', '8', '&', 'W', 'M', '#', '*', 'o', 'a', 'h', 'k', 'b', 'd', 'p', 'q',
+  'w', 'm', 'Z', 'O', '0', 'Q', 'L', 'C', 'J', 'U', 'Y', 'X', 'z', 'c', 'v', 'u', 'n', 'x',
+  'r', 'j', 'f', 't', '/', '\\', '|', '(', ')', '1', '{', '}', '[', ']', '?', '-', '_', '+',
+  '~', '<', '>', 'i', '!', 'l', 'I', ';', ':', ',', '"', '^', '`', '\'', '.'))
 
 /**
  * A custom character table for ASCII art generation.
