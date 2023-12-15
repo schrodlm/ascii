@@ -59,9 +59,8 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       return None
     }
 
-    val configBuilder: AsciiArtConfigBuilder = new AsciiArtConfigBuilder()
-    val filledConfigBuilder : AsciiArtConfigBuilder =  nextArg(configBuilder, args.toList)
-    Some(filledConfigBuilder.build())
+    val configBuilder : AsciiArtConfigBuilder =  nextArg(new AsciiArtConfigBuilder(), args.toList)
+    Some(configBuilder.build())
   }
 
   /**
