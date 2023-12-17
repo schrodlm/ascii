@@ -1,6 +1,7 @@
 package Config
 
-import Filter.{Filter}
+import Config.table.Table
+import Filter.Filter
 
 /**
  * Configuration class for ASCII art generation.

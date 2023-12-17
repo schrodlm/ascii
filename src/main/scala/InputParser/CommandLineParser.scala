@@ -128,8 +128,7 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       }
 
       case unknown :: _ =>
-        println("Unknown option " + unknown)
-        exit(1);
+        throw new IllegalArgumentException("Unknown option " + unknown)
     }
   }
 

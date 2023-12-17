@@ -1,5 +1,6 @@
 package Config
 
+import Config.table.{CustomTable, DefaultNonLinearTable, DefaultTable, PaulBorkesTable, Table, TableNameMapper}
 import Filter.{Filter, IdentityFilter}
 
 /**
@@ -50,11 +51,7 @@ class AsciiArtConfigBuilder {
    * @return the updated builder instance
    */
   def withTable(name: String) : AsciiArtConfigBuilder = {
-    name.toLowerCase match {
-      case "default" => this.table = new PaulBorkesTable
-      case "mathematical" => this.table = new DefaultTable()
-      case _ => throw new IllegalArgumentException("Unknown table type")
-    }
+    this.table = TableNameMapper(name)
     this
   }
 
