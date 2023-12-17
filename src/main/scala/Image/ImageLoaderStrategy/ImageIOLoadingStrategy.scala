@@ -1,6 +1,6 @@
 package Image.ImageLoaderStrategy
 
-import Image.ImageConverter.ImageConverter
+import Conversion.BufferedToRgbConverter
 import Image.RGBImage
 
 import java.io.File
@@ -11,6 +11,6 @@ class ImageIOLoadingStrategy(path : String) extends LoadingImageStrategy {
   override def load(): RGBImage = {
     val bufferedImage = ImageIO.read(new File(path))
 
-    ImageConverter.fromBufferedImage(bufferedImage)
+    BufferedToRgbConverter.convert(bufferedImage)
   }
 }

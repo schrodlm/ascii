@@ -1,8 +1,7 @@
 package Image
 
 import Config.{ImageSource, PathImageSource, RandomImageSource}
-import Image.ImageLoaderStrategy.{JPEGImageLoadingStrategy, PNGImageLoadingStrategy}
-import Image.ImageStrategy.RandomImageStrategy
+import Image.ImageLoaderStrategy.{JPEGImageLoadingStrategy, PNGImageLoadingStrategy, RandomImageLoadingStrategy}
 
 /**
  * Factory object for creating images based on different sources.
@@ -42,8 +41,8 @@ object RGBImageFactory {
       }
       // Handle the case where the image source is random.
       case RandomImageSource() => {
-        val randomImageStrategy = new RandomImageStrategy()
-        randomImageStrategy.createImage()
+        val randomImageStrategy = new RandomImageLoadingStrategy()
+        randomImageStrategy.load()
       }
     }
 

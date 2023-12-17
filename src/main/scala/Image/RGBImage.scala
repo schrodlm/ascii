@@ -12,12 +12,15 @@ import org.w3c.dom.css.RGBColor
 class RGBImage(width: Int, height: Int, data: Array[Int]) extends BaseImage(width,height,data) {
 
   def getPixelColor(x : Int, y : Int) : (Int, Int, Int, Int) = {
-    val pixel = getPixel(x,y)
+    getPixelColor(getPixel(x,y))
+  }
+
+  def getPixelColor(pixel: Int): (Int, Int, Int, Int) = {
 
     val alpha = (pixel >> 24) & 0xff
-    val red   = (pixel >> 16) & 0xff
+    val red = (pixel >> 16) & 0xff
     val green = (pixel >> 8) & 0xff
-    val blue  = pixel & 0xff
+    val blue = pixel & 0xff
 
     (alpha, red, green, blue)
   }

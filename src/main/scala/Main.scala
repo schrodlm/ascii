@@ -1,7 +1,8 @@
 package Main
 
 import Config.{AsciiArtConfig, PathImageSource}
-import Image.{RGBImage, RGBImageFactory}
+import Conversion.{RgbToGrayscaleConverter, SaveGrayscale}
+import Image.{GrayscaleImage, RGBImage, RGBImageFactory}
 import InputParser.CommandLineParser
 
 
@@ -17,7 +18,8 @@ object Main{
 
     val image: RGBImage = RGBImageFactory.createRGBImage(config.image_source)
 
-    println(s"${image.getWidth()} x ${image.getHeight()}")
+    val grayscaleImg : GrayscaleImage = new RgbToGrayscaleConverter().convert(image)
+    SaveGrayscale.saveGrayscaleImage(grayscaleImg, "D:\\dev\\university\\images_for_asciiart\\test_output.png")
 
   }
 }

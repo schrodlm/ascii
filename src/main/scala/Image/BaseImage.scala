@@ -13,4 +13,8 @@ abstract class BaseImage(width: Int, height: Int, data: Array[Int]) extends Imag
   def getHeight(): Int = {
     height
   }
+
+  def getData(): Array[Int] = {
+    data
+  }
 }
