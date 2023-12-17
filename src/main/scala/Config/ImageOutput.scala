@@ -10,8 +10,8 @@ import java.io.{BufferedWriter, FileWriter}
  * This sealed trait is used as a base to define different types of output destinations
  * for ASCII art, such as to a file or to the console.
  */
-sealed trait ImageOutput{
-  def save(asciiArt : AsciiArt)
+sealed trait ImageOutput {
+  def save(asciiArt: AsciiArt)
 }
 
 /**
@@ -21,16 +21,11 @@ sealed trait ImageOutput{
  */
 case class PathImageOutput(path: String) extends ImageOutput {
   def save(asciiArt: AsciiArt): Unit = {
-    val width = asciiArt.getWidth()
-    val height = asciiArt.getHeight()
-    val asciiData = asciiArt.getData()
 
-    // Convert ASCII data to a string representation
-    val asciiString = (0 until height).map { y =>
-      (0 until width).map { x =>
-        asciiData(y * width + x).toChar
-      }.mkString
-    }.mkString("\n")
+    val asciiString = asciiArt.getData()
+      .grouped(asciiArt.getWidth())
+      .map(_.map(_.toChar).mkString)
+      .mkString("\n")
 
     // Write the ASCII string to a file
     val file = new BufferedWriter(new FileWriter(path))
@@ -50,6 +45,14 @@ case class PathImageOutput(path: String) extends ImageOutput {
  */
 case class ConsoleImageOutput() extends ImageOutput {
 
-  def save(img: AsciiArt) = ???
+  def save(asciiArt: AsciiArt) = {
 
+    val asciiString = asciiArt.getData()
+      .grouped(asciiArt.getWidth())
+      .map(_.map(_.toChar).mkString)
+      .mkString("\n")
+
+    // Print the ASCII string to the console
+    println(asciiString)
+  }
 }
