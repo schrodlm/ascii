@@ -1,7 +1,7 @@
 package Filter
 
-import Image.RGBImage
+import Image.{Image, RGBImage}
 
-trait Filter {
-  def apply(image: RGBImage) : RGBImage
+trait Filter[T <: Image]{
+  def apply(image: T) : T
 }

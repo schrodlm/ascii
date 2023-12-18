@@ -1,6 +1,6 @@
 package Filter
-import Image.RGBImage
+import Image.{GrayscaleImage, RGBImage}
 
-class BrightnessFilter(val value : Int) extends Filter {
-  override def apply(image: RGBImage): RGBImage = ???
+class BrightnessFilter(val value : Int) extends GrayscaleImageFilter {
+  override def apply(image: GrayscaleImage): GrayscaleImage = ???
 }
