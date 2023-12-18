@@ -1,5 +1,6 @@
 package Config
 
+import Config.table.{CustomTable, DefaultNonLinearTable, DefaultTable, PaulBorkesTable, Table, TableNameMapper}
 import Filter.{Filter, IdentityFilter}
 
 /**
@@ -10,7 +11,7 @@ import Filter.{Filter, IdentityFilter}
 class AsciiArtConfigBuilder {
   private var imageSource: Option[ImageSource] = None
   private var imageOutput: Option[ImageOutput] = None
-  private var table: Table = new DefaultTable()
+  private var table: Table = new PaulBorkesTable()
   private var filters: Array[Filter] = Array(new IdentityFilter())
 
   private var imageProvided : Boolean = false
@@ -50,11 +51,7 @@ class AsciiArtConfigBuilder {
    * @return the updated builder instance
    */
   def withTable(name: String) : AsciiArtConfigBuilder = {
-    name.toLowerCase match {
-      case "default" => this.table = new DefaultTable
-      case "mathematical" => this.table = new MathematicalTable()
-      case _ => throw new IllegalArgumentException("Unknown table type")
-    }
+    this.table = TableNameMapper(name)
     this
   }
 

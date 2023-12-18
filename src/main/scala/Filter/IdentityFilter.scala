@@ -1,10 +1,10 @@
 package Filter
 
-import Image.Image
+import Image.RGBImage
 
 class IdentityFilter() extends Filter
 {
-  override def apply(image: Image): Image =
+  override def apply(image: RGBImage): RGBImage =
   {
     image
   }

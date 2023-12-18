@@ -1,13 +1,12 @@
 package Image
 
 import Config.{ImageSource, PathImageSource, RandomImageSource}
-import Image.ImageLoaderStrategy.{JPEGImageLoadingStrategy, PNGImageLoadingStrategy}
-import Image.ImageStrategy.RandomImageStrategy
+import Image.ImageLoaderStrategy.{JPEGImageLoadingStrategy, PNGImageLoadingStrategy, RandomImageLoadingStrategy}
 
 /**
  * Factory object for creating images based on different sources.
  */
-object ImageFactory {
+object RGBImageFactory {
 
   /**
    * Creates an image based on the specified image source.
@@ -19,7 +18,7 @@ object ImageFactory {
    * @return The created Image.
    * @throws IllegalArgumentException if an unsupported image format is provided.
    */
-  def createImage(input: ImageSource): Image = {
+  def createRGBImage(input: ImageSource): RGBImage = {
 
     input match {
       // Handle the case where the image source is a file path.
@@ -42,8 +41,8 @@ object ImageFactory {
       }
       // Handle the case where the image source is random.
       case RandomImageSource() => {
-        val randomImageStrategy = new RandomImageStrategy()
-        randomImageStrategy.createImage()
+        val randomImageStrategy = new RandomImageLoadingStrategy()
+        randomImageStrategy.load()
       }
     }
 

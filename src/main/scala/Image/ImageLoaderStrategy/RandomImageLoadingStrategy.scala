@@ -1,14 +1,13 @@
-package Image.ImageStrategy
+package Image.ImageLoaderStrategy
 
-import Image.{Image, ImageConverter}
+import Conversion.BufferedToRgbConverter
+import Image.RGBImage
 
-import java.awt.image.BufferedImage
-import java.io.File
 import java.net.URL
 import javax.imageio.ImageIO
 
-class RandomImageStrategy extends ImageStrategy {
-  override def createImage(): Image = {
+class RandomImageLoadingStrategy extends LoadingImageStrategy {
+  override def load(): RGBImage = {
 
     val imageUrl = "https://source.unsplash.com/random"
     val connection = new URL(imageUrl).openConnection()
@@ -18,6 +17,6 @@ class RandomImageStrategy extends ImageStrategy {
     val image = ImageIO.read(inputStream)
     inputStream.close()
 
-    ImageConverter.fromBufferedImage(image)
+    BufferedToRgbConverter.convert(image)
   }
 }

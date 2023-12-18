@@ -1,7 +1,7 @@
 package Image.ImageLoaderStrategy
 
-import Image.Image
+import Image.RGBImage
 
 trait LoadingImageStrategy {
-  def load(): Image
+  def load(): RGBImage
 }
