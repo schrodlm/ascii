@@ -78,11 +78,9 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       case "--image-random" :: tail => {
         nextArg(configBuilder.withImageSource(RandomImageSource()), tail)
       }
-
       case "--image" :: path :: tail => {
         nextArg(configBuilder.withImageSource(PathImageSource(path)), tail)
       }
-
       case "--table" :: name :: tail => {
         nextArg(configBuilder.withTable(name), tail)
       }

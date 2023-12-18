@@ -1,7 +1,7 @@
 package Config
 
 import Config.table.Table
-import Filter.Filter
+import Filter.{AsciiArtFilter, Filter, GrayscaleImageFilter, RGBImageFilter}
 
 /**
  * Configuration class for ASCII art generation.
@@ -18,6 +18,8 @@ import Filter.Filter
 class AsciiArtConfig(val image_source: ImageSource,
                      val image_output: ImageOutput,
                      val table: Table,
-                     val filters: Array[Filter]
+                     val asciiFilters: Array[AsciiArtFilter],
+                     val grayscaleFilters : Array[GrayscaleImageFilter],
+                     val rgbImageFilters: Array[RGBImageFilter]
                     )
 

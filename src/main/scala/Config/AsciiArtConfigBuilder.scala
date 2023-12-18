@@ -1,7 +1,8 @@
 package Config
 
 import Config.table.{CustomTable, DefaultNonLinearTable, DefaultTable, PaulBorkesTable, Table, TableNameMapper}
-import Filter.{Filter, IdentityFilter}
+import Filter.{AsciiArtFilter, Filter, GrayscaleImageFilter, IdentityFilter, RGBImageFilter}
+import Image.Image
 
 /**
  * Builder for creating an AsciiArtConfig instance.
@@ -12,7 +13,7 @@ class AsciiArtConfigBuilder {
   private var imageSource: Option[ImageSource] = None
   private var imageOutput: Option[ImageOutput] = None
   private var table: Table = new PaulBorkesTable()
-  private var filters: Array[Filter] = Array(new IdentityFilter())
+  private var filters: Array[Filter[_ <: Image]] = Array(new IdentityFilter())
 
   private var imageProvided : Boolean = false
   // ========================= Builder setter methods =============================
@@ -73,7 +74,7 @@ class AsciiArtConfigBuilder {
    * @param filters provided array of filters
    * @return the updated builder instance
    */
-  def withFilters(filters: Array[Filter]) : AsciiArtConfigBuilder = {
+  def withFilters(filters: Array[Filter[_ <: Image]]) : AsciiArtConfigBuilder = {
     this.filters = this.filters ++ filters
     this
   }
@@ -85,7 +86,7 @@ class AsciiArtConfigBuilder {
    * @param filter provided filter
    * @return the updated builder instance
    */
-  def addFilter(filter: Filter ) : AsciiArtConfigBuilder = {
+  def addFilter(filter: Filter[_ <: Image] ) : AsciiArtConfigBuilder = {
     this.filters = this.filters :+ filter
     this
   }
@@ -104,6 +105,10 @@ class AsciiArtConfigBuilder {
       throw new IllegalStateException("Missing required fields")
     }
 
-    new AsciiArtConfig(imageSource.get, imageOutput.get, table, filters)
+    val asciiArtFilters = filters.collect { case f: AsciiArtFilter => f }
+    val grayscaleFilters = filters.collect { case f: GrayscaleImageFilter => f }
+    val rgbImageFilters = filters.collect { case f: RGBImageFilter => f }
+
+    new AsciiArtConfig(imageSource.get, imageOutput.get, table, asciiArtFilters, grayscaleFilters, rgbImageFilters)
   }
 }

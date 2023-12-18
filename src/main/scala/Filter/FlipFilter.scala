@@ -1,6 +1,6 @@
 package Filter
-import Image.RGBImage
+import Image.{AsciiArt, RGBImage}
 
 class FlipFilter(val axis : String) extends AsciiArtFilter{
-  override def apply(image: RGBImage): RGBImage = ???
+  override def apply(image: AsciiArt): AsciiArt = ???
 }
