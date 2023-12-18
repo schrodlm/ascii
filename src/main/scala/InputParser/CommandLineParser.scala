@@ -1,9 +1,8 @@
 package InputParser
 
-import Config.{AsciiArtConfig, AsciiArtConfigBuilder, ConsoleImageOutput, PathImageOutput, PathImageSource, RandomImageSource}
+import Config.{AsciiArtConfig, ConsoleImageOutput, PathImageOutput, PathImageSource, RandomImageSource}
 import Filter.{BrightnessFilter, FlipFilter, FontAspectRatioFilter, InvertFilter, RotationFilter, ScaleFilter}
 
-import scala.sys.exit
 
 /**
  * A command line parser for configuring ASCII art generation.
@@ -59,7 +58,7 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       return None
     }
 
-    val configBuilder : AsciiArtConfigBuilder =  nextArg(new AsciiArtConfigBuilder(), args.toList)
+    val configBuilder : AsciiArtConfig.Builder =  nextArg(new AsciiArtConfig.Builder(), args.toList)
     Some(configBuilder.build())
   }
 
@@ -70,7 +69,7 @@ class CommandLineParser(val args: Array[String]) extends Parser {
    * @param list          the remaining command line arguments to process
    * @return the updated configuration builder
    */
-  def nextArg(configBuilder: AsciiArtConfigBuilder, list: List[String]): AsciiArtConfigBuilder = {
+  def nextArg(configBuilder: AsciiArtConfig.Builder, list: List[String]): AsciiArtConfig.Builder = {
 
     list match {
       case Nil => configBuilder
