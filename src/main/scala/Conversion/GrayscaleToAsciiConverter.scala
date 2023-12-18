@@ -8,7 +8,7 @@ class GrayscaleToAsciiConverter(){
   def convert(image : GrayscaleImage, table: Table) : AsciiArt = {
 
     val ascii_data =  image.getData().map { value =>
-        val grayscaleValue = value & 0xFF
+        val grayscaleValue = image.getGrayscale(value)
         table.getChar(grayscaleValue).toInt
     }
 

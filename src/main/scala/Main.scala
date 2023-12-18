@@ -22,12 +22,12 @@ object Main{
       filter.apply(currentImage)
     }
 
-    val grayscaleImg : GrayscaleImage = new RgbToGrayscaleConverter().convert(image)
+    val grayscaleImg : GrayscaleImage = new RgbToGrayscaleConverter().convert(filteredImage)
     val filteredGrayscaleImg : GrayscaleImage = config.grayscaleFilters.foldLeft(grayscaleImg) { (currentImage, filter) =>
       filter.apply(currentImage)
     }
 
-    val asciiArt : AsciiArt = new GrayscaleToAsciiConverter().convert(grayscaleImg, config.table)
+    val asciiArt : AsciiArt = new GrayscaleToAsciiConverter().convert(filteredGrayscaleImg, config.table)
     val filteredAsciiArt : AsciiArt = config.asciiFilters.foldLeft(asciiArt){ (currentImage, filter) =>
       filter.apply(currentImage)
     }
@@ -35,7 +35,7 @@ object Main{
     config.image_output.save(filteredAsciiArt)
 
 
-    SaveGrayscale.saveGrayscaleImage(grayscaleImg, "D:\\dev\\university\\images_for_asciiart\\test_output.png")
+    SaveGrayscale.saveGrayscaleImage(filteredGrayscaleImg, "D:\\dev\\university\\images_for_asciiart\\test_output1.png")
 
   }
 }
