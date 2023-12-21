@@ -37,13 +37,16 @@ class ScaleFilter(val scale: Double) extends AsciiArtFilter {
     val newHeight = (image.getHeight() / scale).toInt
     val newData = Array.ofDim[Int](newWidth * newHeight)
 
-    (0 until image.getHeight()).foreach { y =>
-      (0 until image.getWidth()).foreach { x =>
-        (0 until pixelRatio).foreach { pixelCount =>
-          newData((y * image.getWidth() + x) * pixelRatio + pixelCount) = image.getData()(y * image.getWidth() + x)
-        }
-      }
+    for {
+      y <- 0 until image.getHeight()
+      x <- 0 until image.getWidth()
+      dy <- 0 until pixelRatio
+      dx <- 0 until pixelRatio
+    } {
+      val newIndex = ((y * pixelRatio + dy)* newWidth) + (x * pixelRatio + dx)
+      newData(newIndex) = image.getData()(y * image.getWidth() + x)
     }
+
 
     new AsciiArt(newWidth, newHeight, newData)
   }
