@@ -1,18 +1,14 @@
-package Main
-
-import Config.{AsciiArtConfig, PathImageSource}
-import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SaveGrayscale}
-import Image.{AsciiArt, GrayscaleImage, RGBImage, RGBImageFactory}
+import Config.AsciiArtConfig
 import InputParser.CommandLineParser
-import Processing.{AsciiArtFacade}
+import Processing.AsciiArtFacade
 
 
 object Main{
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
 
     //Parse Input
-    val parser: CommandLineParser = new CommandLineParser(args);
+    val parser: CommandLineParser = new CommandLineParser(args)
     val config: AsciiArtConfig = parser.parse().getOrElse(return)
 
 
