@@ -1,6 +1,6 @@
 package Config
 
-import Config.table.{CustomTable, PaulBorkesTable, Table, TableNameMapper}
+import Config.table.{CustomTable, DefaultTable, PaulBorkesTable, Table, TableNameMapper}
 import Filter.{AsciiArtFilter, Filter, GrayscaleImageFilter, IdentityFilter, RGBImageFilter}
 import Image.Image
 
@@ -34,8 +34,8 @@ object AsciiArtConfig{
   class Builder {
     private var imageSource: Option[ImageSource] = None
     private var imageOutput: Option[ImageOutput] = None
-    private var table: Table = new PaulBorkesTable()
-    private var filters: Array[Filter[_ <: Image]] = Array(new IdentityFilter())
+    private var table: Table = new DefaultTable()
+    private var filters: Array[Filter[_ <: Image]] = Array()
 
     private var imageProvided: Boolean = false
     // ========================= Builder setter methods =============================
