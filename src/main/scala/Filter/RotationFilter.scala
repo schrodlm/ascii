@@ -1,6 +1,6 @@
 package Filter
-import Image.RGBImage
+import Image.{AsciiArt, RGBImage}
 
-class RotationFilter(val rotation: Int) extends Filter{
-  override def apply(image: RGBImage): RGBImage = ???
+class RotationFilter(val rotation: Int) extends AsciiArtFilter {
+  override def apply(image: AsciiArt): AsciiArt = ???
 }
