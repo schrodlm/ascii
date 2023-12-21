@@ -1,12 +1,16 @@
+/*
 package Image
 
 import Config.{ImageSource, PathImageSource, RandomImageSource}
-import Image.ImageLoaderStrategy.{JPEGImageLoadingStrategy, PNGImageLoadingStrategy, RandomImageLoadingStrategy}
+import Image.ImageLoaderStrategy.{ImageLoadingStrategy, JPEGImageLoadingStrategy, PNGImageLoadingStrategy, RandomImageLoadingStrategy}
 
 /**
  * Factory object for creating images based on different sources.
  */
-object RGBImageFactory {
+class RGBImageFactory {
+
+
+  var loadingStrategy: ImageLoadingStrategy
 
   /**
    * Creates an image based on the specified image source.
@@ -22,25 +26,29 @@ object RGBImageFactory {
 
     input match {
       // Handle the case where the image source is a file path.
-      case PathImageSource(path) =>
+      case PathImageSource(path) => {
 
         val fileFormat = path.split("\\.").last
 
         fileFormat match {
           case "jpg" =>
-            new JPEGImageLoadingStrategy(path).load()
+            loadingStrategy = new JPEGImageLoadingStrategy(path)
           case "png" =>
-            new PNGImageLoadingStrategy(path).load()
+            loadingStrategy = new PNGImageLoadingStrategy(path)
           // Throw an exception for unsupported file formats.
           case _ =>
             throw new IllegalArgumentException("Provided file with unsupported format")
         }
+        loadingStrategy.load()
+      }
       // Handle the case where the image source is random.
       case RandomImageSource() =>
-        val randomImageStrategy = new RandomImageLoadingStrategy()
-        randomImageStrategy.load()
+        loadingStrategy =  new RandomImageLoadingStrategy()
+        loadingStrategy.load()
+
     }
 
 
   }
 }
+*/

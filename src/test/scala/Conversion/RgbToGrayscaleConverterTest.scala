@@ -10,8 +10,8 @@ class RgbToGrayscaleConverterTest extends FlatSpec with Matchers {
     val rgbData = Array.fill(width * height)(0xff123456) // Example RGB data
     val rgbImage = new RGBImage(width, height, rgbData)
 
-    val converter = new RgbToGrayscaleConverter()
-    val grayscaleImage = converter.convert(rgbImage)
+    val converter = new RgbToGrayscaleConverter(rgbImage)
+    val grayscaleImage = converter.convert()
 
     // Assertions
     grayscaleImage.getWidth() shouldBe width

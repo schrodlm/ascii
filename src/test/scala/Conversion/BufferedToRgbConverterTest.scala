@@ -16,7 +16,7 @@ class BufferedToRgbConverterTest extends FlatSpec with Matchers{
       bufferedImage.setRGB(x, y, new Color(x % 256, y % 256, (x + y) % 256).getRGB)
     }
 
-    val rgbImage = BufferedToRgbConverter.convert(bufferedImage)
+    val rgbImage = new BufferedToRgbConverter(bufferedImage).convert()
 
     // Assertions
     rgbImage.getWidth() shouldBe width

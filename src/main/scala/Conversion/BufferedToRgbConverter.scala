@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage
 /**
  * Utility class for converting a BufferedImage to the custom Image class.
  */
-object BufferedToRgbConverter {
+class BufferedToRgbConverter(val bufferedImage: BufferedImage) extends Convertor[RGBImage] {
 
   /**
    * Converts a BufferedImage to a custom Image class.
@@ -18,7 +18,7 @@ object BufferedToRgbConverter {
    * @param bufferedImage The BufferedImage to convert.
    * @return An instance of the custom Image class.
    */
-  def convert(bufferedImage: BufferedImage): RGBImage = {
+  override def convert(): RGBImage = {
     val width = bufferedImage.getWidth
     val height = bufferedImage.getHeight
     val pixels = new Array[Int](width * height)

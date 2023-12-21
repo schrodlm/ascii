@@ -2,21 +2,21 @@ package Processing
 
 
 import Config.AsciiArtConfig
-import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SaveGrayscale}
+import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SaveGrayscale, SourceToRgbImage}
 import Filter.Filter
-import Image.{AsciiArt, GrayscaleImage, Image, RGBImage, RGBImageFactory}
+import Image.{AsciiArt, GrayscaleImage, Image, RGBImage}
 
 
 class AsciiArtFacade {
 
   def processAsciiArt(config: AsciiArtConfig): Unit = {
-    val image: RGBImage = RGBImageFactory.createRGBImage(config.image_source)
+    val image: RGBImage = new SourceToRgbImage(config.image_source).convert()
     val filteredImage: RGBImage = applyFilters(image, config.rgbImageFilters)
 
-    val grayscaleImage: GrayscaleImage = new RgbToGrayscaleConverter().convert(filteredImage)
+    val grayscaleImage: GrayscaleImage = new RgbToGrayscaleConverter(filteredImage).convert()
     val filteredGrayscaleImg: GrayscaleImage = applyFilters(grayscaleImage, config.grayscaleFilters)
 
-    val asciiArt: AsciiArt = new GrayscaleToAsciiConverter().convert(filteredGrayscaleImg, config.table)
+    val asciiArt: AsciiArt = new GrayscaleToAsciiConverter(filteredGrayscaleImg, config.table).convert()
     val filteredAsciiArt: AsciiArt = applyFilters(asciiArt, config.asciiFilters)
 
     config.image_output.save(filteredAsciiArt)

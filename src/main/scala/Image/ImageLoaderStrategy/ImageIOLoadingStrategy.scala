@@ -11,6 +11,6 @@ class ImageIOLoadingStrategy(path : String) extends ImageLoadingStrategy {
   override def load(): RGBImage = {
     val bufferedImage = ImageIO.read(new File(path))
 
-    BufferedToRgbConverter.convert(bufferedImage)
+    new BufferedToRgbConverter(bufferedImage).convert()
   }
 }

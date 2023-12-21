@@ -17,6 +17,6 @@ class RandomImageLoadingStrategy extends ImageLoadingStrategy {
     val image = ImageIO.read(inputStream)
     inputStream.close()
 
-    BufferedToRgbConverter.convert(image)
+    new BufferedToRgbConverter(image).convert()
   }
 }
