@@ -1,5 +1,5 @@
 package Filter
-import Image.{AsciiArt}
+import Image.AsciiArt
 
 class ScaleFilter(val scale : Int) extends AsciiArtFilter {
   override def apply(image: AsciiArt): AsciiArt = {

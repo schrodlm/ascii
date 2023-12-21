@@ -1,6 +1,6 @@
 package Filter
 
-import Image.{Image, RGBImage}
+import Image.Image
 
 class IdentityFilter() extends Filter[Image]
 {
