@@ -4,6 +4,7 @@ import Config.{AsciiArtConfig, PathImageSource}
 import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SaveGrayscale}
 import Image.{AsciiArt, GrayscaleImage, RGBImage, RGBImageFactory}
 import InputParser.CommandLineParser
+import Processing.{AsciiArtFacade}
 
 
 object Main{
@@ -12,30 +13,10 @@ object Main{
 
     //Parse Input
     val parser: CommandLineParser = new CommandLineParser(args);
-
-    val config: AsciiArtConfig = parser.parse().getOrElse(null)
-    if (config == null) return
+    val config: AsciiArtConfig = parser.parse().getOrElse(return)
 
 
-    val image: RGBImage = RGBImageFactory.createRGBImage(config.image_source)
-    val filteredImage : RGBImage = config.rgbImageFilters.foldLeft(image) { (currentImage, filter) =>
-      filter.apply(currentImage)
-    }
-
-    val grayscaleImg : GrayscaleImage = new RgbToGrayscaleConverter().convert(filteredImage)
-    val filteredGrayscaleImg : GrayscaleImage = config.grayscaleFilters.foldLeft(grayscaleImg) { (currentImage, filter) =>
-      filter.apply(currentImage)
-    }
-
-    val asciiArt : AsciiArt = new GrayscaleToAsciiConverter().convert(filteredGrayscaleImg, config.table)
-    val filteredAsciiArt : AsciiArt = config.asciiFilters.foldLeft(asciiArt){ (currentImage, filter) =>
-      filter.apply(currentImage)
-    }
-
-    config.image_output.save(filteredAsciiArt)
-
-
-    SaveGrayscale.saveGrayscaleImage(filteredGrayscaleImg, "D:\\dev\\university\\images_for_asciiart\\test_output1.png")
-
+    val asciiArtFacade = new AsciiArtFacade()
+    asciiArtFacade.processAsciiArt(config)
   }
 }

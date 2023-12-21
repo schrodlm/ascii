@@ -28,14 +28,14 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       |    --output-file [path]           Output the ASCII art to a file at the specified path.
       |
       |Optional Options:
-      |  --table [name]                 Specify the name of the predefined character table (e.g., 'default', 'mathematical').
+      |  --table [name]                 Specify the name of the predefined character table ('default', 'mathematical', 'nonlinear-default').
       |  --custom-table [chars]         Define a custom character table.
-      |  --rotate [degrees]             Apply rotation to the image (degrees must be an integer).
+      |  --rotate [degrees]             Apply rotation to the image (degrees must be an integer). ! NOT IMPLEMENTED YET !
       |  --scale [value]                Scale the image by a specified factor (value must be an integer).
-      |  --invert                       Apply an inversion filter to the image.
-      |  --flip [axis]                  Flip the image along a specified axis ('horizontal' or 'vertical').
+      |  --invert                       Apply an inversion filter to the image. ! NOT IMPLEMENTED YET !
+      |  --flip [axis]                  Flip the image along a specified axis ('horizontal' or 'vertical').! NOT IMPLEMENTED YET !
       |  --brightness [value]           Adjust the brightness of the image (value must be an integer).
-      |  --font-aspect-ratio [x:y]      Set the font aspect ratio with two integers (e.g., '1:2').
+      |  --font-aspect-ratio [x:y]      Set the font aspect ratio with two integers (e.g., '1:2'). ! NOT IMPLEMENTED YET !
       |
       |Examples:
       |  asciiart --image /path/to/image.jpg --rotate 90 --output-console
