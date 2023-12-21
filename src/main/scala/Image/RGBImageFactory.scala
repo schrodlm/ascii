@@ -22,28 +22,23 @@ object RGBImageFactory {
 
     input match {
       // Handle the case where the image source is a file path.
-      case PathImageSource(path) => {
+      case PathImageSource(path) =>
 
         val fileFormat = path.split("\\.").last
 
         fileFormat match {
-          case "jpg" => {
+          case "jpg" =>
             new JPEGImageLoadingStrategy(path).load()
-          }
-          case "png" => {
+          case "png" =>
             new PNGImageLoadingStrategy(path).load()
-          }
           // Throw an exception for unsupported file formats.
-          case _ => {
+          case _ =>
             throw new IllegalArgumentException("Provided file with unsupported format")
-          }
         }
-      }
       // Handle the case where the image source is random.
-      case RandomImageSource() => {
+      case RandomImageSource() =>
         val randomImageStrategy = new RandomImageLoadingStrategy()
         randomImageStrategy.load()
-      }
     }
 
 

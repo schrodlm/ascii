@@ -1,6 +1,5 @@
 package Image
 
-import org.w3c.dom.css.RGBColor
 
 /**
  * Represents an image with a specified width, height, and pixel data.

@@ -11,7 +11,7 @@ import java.io.{BufferedWriter, FileWriter}
  * for ASCII art, such as to a file or to the console.
  */
 sealed trait ImageOutput {
-  def save(asciiArt: AsciiArt)
+  def save(asciiArt: AsciiArt) : Unit
 }
 
 /**
@@ -45,7 +45,7 @@ case class PathImageOutput(path: String) extends ImageOutput {
  */
 case class ConsoleImageOutput() extends ImageOutput {
 
-  def save(asciiArt: AsciiArt) = {
+  def save(asciiArt: AsciiArt): Unit = {
 
     val asciiString = asciiArt.getData()
       .grouped(asciiArt.getWidth())
