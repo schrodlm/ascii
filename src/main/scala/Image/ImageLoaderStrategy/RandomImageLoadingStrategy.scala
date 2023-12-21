@@ -6,7 +6,7 @@ import Image.RGBImage
 import java.net.URL
 import javax.imageio.ImageIO
 
-class RandomImageLoadingStrategy extends LoadingImageStrategy {
+class RandomImageLoadingStrategy extends ImageLoadingStrategy {
   override def load(): RGBImage = {
 
     val imageUrl = "https://source.unsplash.com/random"

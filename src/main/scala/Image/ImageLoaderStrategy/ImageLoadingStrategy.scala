@@ -2,6 +2,6 @@ package Image.ImageLoaderStrategy
 
 import Image.RGBImage
 
-trait LoadingImageStrategy {
+trait ImageLoadingStrategy {
   def load(): RGBImage
 }
