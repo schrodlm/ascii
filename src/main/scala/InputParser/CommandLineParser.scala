@@ -87,7 +87,7 @@ class CommandLineParser(val args: Array[String]) extends Parser {
         val rotationFilter: RotationFilter = new RotationFilter(degrees.toInt)
         nextArg(configBuilder.addFilter(rotationFilter), tail)
       case "--scale" :: value :: tail =>
-        val scaleFilter: ScaleFilter = new ScaleFilter(value.toInt)
+        val scaleFilter: ScaleFilter = new ScaleFilter(value.toDouble)
         nextArg(configBuilder.addFilter(scaleFilter), tail)
       case "--invert" :: tail =>
         val invertFilter: InvertFilter = new InvertFilter()
