@@ -1,5 +1,9 @@
 package Image.ImageLoaderStrategy
 
+import Image.RGBImage
 
-class JPEGImageLoadingStrategy(path: String) extends ImageIOLoadingStrategy(path) {
+import java.awt.image.BufferedImage
+
+
+class JPEGImageLoadingStrategy(path: String, converter: BufferedImage => RGBImage) extends ImageIOLoadingStrategy(path, converter) {
 }
