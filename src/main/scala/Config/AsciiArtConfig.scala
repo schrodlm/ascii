@@ -1,6 +1,6 @@
 package Config
 
-import Config.table.{CustomTable, DefaultTable, PaulBorkesTable, Table, TableNameMapper}
+import Config.Tables.{CustomTable, DefaultTable, PaulBorkesTable, Table, TableNameMapper}
 import Filter.{AsciiArtFilter, Filter, GrayscaleImageFilter, IdentityFilter, RGBImageFilter}
 import Image.Image
 

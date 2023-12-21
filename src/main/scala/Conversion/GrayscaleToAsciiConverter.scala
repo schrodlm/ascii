@@ -1,6 +1,6 @@
 package Conversion
 
-import Config.table.Table
+import Config.Tables.Table
 import Image.{AsciiArt, GrayscaleImage}
 
 class GrayscaleToAsciiConverter() {

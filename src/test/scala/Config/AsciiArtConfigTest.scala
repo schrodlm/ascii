@@ -1,6 +1,6 @@
 package Config
 
-import Config.table.{CustomTable, DefaultTable, PaulBorkesTable}
+import Config.Tables.{CustomTable, DefaultTable, PaulBorkesTable}
 import Filter.{AsciiArtFilter, GrayscaleImageFilter, RGBImageFilter}
 import org.mockito.MockitoSugar.mock
 import org.scalatest.{FlatSpec, Matchers}
@@ -35,6 +35,7 @@ class AsciiArtConfigTest extends FlatSpec with Matchers {
     val source = mock[ImageSource]
     val output = mock[ImageOutput]
     val PaulBorkeTable = "PaulBorkes"
+
 
     val config = new AsciiArtConfig.Builder()
       .withImageSource(source)
