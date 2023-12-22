@@ -3,7 +3,7 @@ package Conversion
 import Config.Tables.Table
 import Image.{AsciiArt, GrayscaleImage}
 
-class GrayscaleToAsciiConverter(val image: GrayscaleImage,val table: Table) extends Convertor[AsciiArt] {
+class GrayscaleToAsciiConverter(val image: GrayscaleImage,val table: Table) extends ImageConvertor[AsciiArt] {
 
   def convert(): AsciiArt = {
 
