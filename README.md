@@ -3,6 +3,8 @@
 ## Overview
 This ASCII Art Generator is a Scala application designed to convert images into ASCII art representations. It supports various image processing steps including RGB to grayscale conversion, application of filters, and ASCII character mapping based on image luminance.
 
+![Example Image](https://drive.google.com/file/d/1oqtl2l65dD6PtywLfSDlPaAO2MhTVroa/view?usp=drive_link)
+
 ## Features
 - **Image Conversion**: Converts RGB images to grayscale.
 - **Filter Application**: Supports applying a series of filters to images, including brightness adjustment and scaling.
@@ -12,8 +14,8 @@ This ASCII Art Generator is a Scala application designed to convert images into 
 ## Getting Started
 
 ### Prerequisites
-- Scala [version]
-- sbt [version]
+- Scala ["2.13.3"]
+- sbt ["1.0.0"]
 
 ### Installation
 Clone the repository and navigate to the project directory:
@@ -50,3 +52,4 @@ Execute tests using sbt:
 ```
 sbt test
 ```
+
