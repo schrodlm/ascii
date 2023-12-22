@@ -5,6 +5,7 @@ import Image.ImageLoaderStrategy.{ImageLoadingStrategy, JPEGImageLoadingStrategy
 import Image.RGBImage
 
 import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
 
 class SourceToRgbImage(input: ImageSource, var loadingStrategy: Option[ImageLoadingStrategy] = None) extends Convertor[RGBImage] {
 
@@ -24,7 +25,9 @@ class SourceToRgbImage(input: ImageSource, var loadingStrategy: Option[ImageLoad
           }
 
         case RandomImageSource() =>
-          Some(new RandomImageLoadingStrategy())
+          Some(new RandomImageLoadingStrategy(bufferedImage => {
+            new BufferedToRgbConverter(bufferedImage).convert()
+          }))
       }
     }
     loadingStrategy.get.load()

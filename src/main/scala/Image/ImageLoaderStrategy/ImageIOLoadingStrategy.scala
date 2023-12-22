@@ -10,8 +10,12 @@ import javax.imageio.ImageIO
 class ImageIOLoadingStrategy(path : String, converter: BufferedImage => RGBImage) extends ImageLoadingStrategy {
 
   override def load(): RGBImage = {
-    val bufferedImage = ImageIO.read(new File(path))
+    val bufferedImage = readImage(path)
 
     converter(bufferedImage)
+  }
+
+  protected def readImage(str: String): BufferedImage = {
+    ImageIO.read(new File(path))
   }
 }
