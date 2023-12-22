@@ -1,25 +1,39 @@
 package Processing
 
 
-import Config.AsciiArtConfig
-import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SaveGrayscale, SourceToRgbImage}
+import Config.Tables.Table
+import Config.{AsciiArtConfig, ImageSource}
+import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SourceToRgbImage}
 import Filter.Filter
 import Image.{AsciiArt, GrayscaleImage, Image, RGBImage}
 
+class AsciiArtFacade(config: AsciiArtConfig) {
 
-class AsciiArtFacade {
+  def process(): AsciiArt = {
 
-  def processAsciiArt(config: AsciiArtConfig): Unit = {
-    val image: RGBImage = new SourceToRgbImage(config.imageSource).convert()
-    val filteredImage: RGBImage = applyFilters(image, config.rgbImageFilters)
 
-    val grayscaleImage: GrayscaleImage = new RgbToGrayscaleConverter(filteredImage).convert()
-    val filteredGrayscaleImg: GrayscaleImage = applyFilters(grayscaleImage, config.grayscaleFilters)
+    val rgbImage = loadRgbImage(config.imageSource)
+    val filteredRgbImage = applyFilters(rgbImage, config.rgbImageFilters)
 
-    val asciiArt: AsciiArt = new GrayscaleToAsciiConverter(filteredGrayscaleImg, config.table).convert()
-    val filteredAsciiArt: AsciiArt = applyFilters(asciiArt, config.asciiFilters)
+    val grayscaleImage = convertToGrayscale(filteredRgbImage)
+    val filteredGrayscaleImage = applyFilters(grayscaleImage, config.grayscaleFilters)
 
-    config.imageOutput.save(filteredAsciiArt)
+    val asciiArt = convertToAsciiArt(filteredGrayscaleImage, config.table)
+    val filteredAsciiArt = applyFilters(asciiArt, config.asciiFilters)
+
+    filteredAsciiArt
+  }
+
+  private def convertToGrayscale(image: RGBImage): GrayscaleImage = {
+    new RgbToGrayscaleConverter(image).convert()
+  }
+
+  private def convertToAsciiArt(image: GrayscaleImage, table: Table): AsciiArt = {
+    new GrayscaleToAsciiConverter(image, config.table).convert()
+  }
+
+  private def loadRgbImage(source: ImageSource): RGBImage = {
+    new SourceToRgbImage(config.imageSource).convert()
   }
 
   private def applyFilters[T <: Image](image: T, filters: Array[_ <: Filter[T]]): T = {
