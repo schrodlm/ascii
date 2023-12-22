@@ -2,7 +2,20 @@ package Filter
 
 import Image.AsciiArt
 
+/**
+ * Scales an AsciiArt image.
+ *
+ * @param scale Scaling factor for the image.
+ */
 class ScaleFilter(val scale: Double) extends AsciiArtFilter {
+
+  /**
+   * Applies scaling to the given AsciiArt image.
+   *
+   * @param image The AsciiArt image to scale.
+   * @return Scaled AsciiArt image.
+   * @throws IllegalArgumentException if scale is not positive.
+   */
   override def apply(image: AsciiArt): AsciiArt = {
     if (scale <= 0) throw new IllegalArgumentException("Scale must be positive")
 
@@ -15,6 +28,7 @@ class ScaleFilter(val scale: Double) extends AsciiArtFilter {
     }
   }
 
+  //Scales down the image
   private def scaleDown(image: AsciiArt): AsciiArt = {
 
     val newWidth = (image.getWidth() / scale).toInt
@@ -31,6 +45,7 @@ class ScaleFilter(val scale: Double) extends AsciiArtFilter {
     new AsciiArt(newWidth, newHeight, newData)
   }
 
+  // Scales up the image
   private def scaleUp(image: AsciiArt): AsciiArt = {
     val pixelRatio = (1 / scale).toInt
     val newWidth = (image.getWidth() / scale).toInt

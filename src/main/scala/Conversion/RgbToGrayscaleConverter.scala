@@ -1,8 +1,20 @@
 package Conversion
 import Image.{GrayscaleImage, RGBImage}
 
+/**
+ * Converts an RGBImage to a GrayscaleImage.
+ *
+ * @param image The RGBImage to convert.
+ */
 class RgbToGrayscaleConverter(image : RGBImage) extends ImageConvertor[GrayscaleImage]{
 
+  /**
+   * Converts the RGBImage to a GrayscaleImage.
+   *
+   * Uses a standard formula to calculate grayscale values from RGB.
+   *
+   * @return The converted GrayscaleImage.
+   */
   override def convert() : GrayscaleImage = {
 
     val width = image.getWidth()

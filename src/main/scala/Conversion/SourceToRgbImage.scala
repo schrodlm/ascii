@@ -4,11 +4,25 @@ import Config.{ImageSource, PathImageSource, RandomImageSource}
 import Image.ImageLoaderStrategy.{ImageLoadingStrategy, JPEGImageLoadingStrategy, PNGImageLoadingStrategy, RandomImageLoadingStrategy}
 import Image.RGBImage
 
-import java.awt.image.BufferedImage
-import javax.imageio.ImageIO
 
+/**
+ * Converts an image source to an RGBImage.
+ *
+ * Determines and uses an appropriate loading strategy based on the input source.
+ *
+ * @param input           The source of the image.
+ * @param loadingStrategy Optional custom strategy for loading the image.
+ */
 class SourceToRgbImage(input: ImageSource, var loadingStrategy: Option[ImageLoadingStrategy] = None) extends ImageConvertor[RGBImage] {
 
+  /**
+   * Converts the input source to an RGBImage.
+   *
+   * Automatically selects a loading strategy based on the input type if not provided.
+   *
+   * @return The converted RGBImage.
+   * @throws IllegalArgumentException if the file format is unsupported.
+   */
   def convert(): RGBImage = {
     if (loadingStrategy.isEmpty) {
       loadingStrategy = input match {
