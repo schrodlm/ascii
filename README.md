@@ -12,12 +12,13 @@ This ASCII Art Generator is a Scala application designed to convert images into 
 ## Getting Started
 
 ### Prerequisites
-- Scala ["2.13.3"]
-- sbt ["1.0.0"]
+- Scala [2.13.3]
+- sbt [1.0.0]
 
 ### Installation
 Clone the repository and navigate to the project directory:
-```bash
+
+```
 git clone [repository URL]
 cd ascii-art-generator
 ```
@@ -37,7 +38,10 @@ sbt run [command line arguments]
     --image-random: Use a random image as the source.
     --output-console: Output the ASCII art to the console.
     --output-file [path]: Output the ASCII art to a file at the specified path.
-    Additional arguments for filters and ASCII conversion settings.
+
+Additional arguments for filters and ASCII conversion settings.
+
+You can list these available arguments with `--help ` argument
 
 
 ## Testing
