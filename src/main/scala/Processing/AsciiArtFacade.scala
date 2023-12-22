@@ -1,26 +1,39 @@
 package Processing
 
 
-import Config.AsciiArtConfig
-import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SaveGrayscale}
+import Config.Tables.Table
+import Config.{AsciiArtConfig, ImageSource}
+import Conversion.{GrayscaleToAsciiConverter, RgbToGrayscaleConverter, SourceToRgbImage}
 import Filter.Filter
-import Image.{AsciiArt, GrayscaleImage, Image, RGBImage, RGBImageFactory}
+import Image.{AsciiArt, GrayscaleImage, Image, RGBImage}
+
+class AsciiArtFacade(config: AsciiArtConfig) {
+
+  def process(): AsciiArt = {
 
 
-class AsciiArtFacade {
+    val rgbImage = loadRgbImage(config.imageSource)
+    val filteredRgbImage = applyFilters(rgbImage, config.rgbImageFilters)
 
-  def processAsciiArt(config: AsciiArtConfig): Unit = {
-    val image: RGBImage = RGBImageFactory.createRGBImage(config.image_source)
-    val filteredImage: RGBImage = applyFilters(image, config.rgbImageFilters)
+    val grayscaleImage = convertToGrayscale(filteredRgbImage)
+    val filteredGrayscaleImage = applyFilters(grayscaleImage, config.grayscaleFilters)
 
-    val grayscaleImage: GrayscaleImage = new RgbToGrayscaleConverter().convert(filteredImage)
-    val filteredGrayscaleImg: GrayscaleImage = applyFilters(grayscaleImage, config.grayscaleFilters)
+    val asciiArt = convertToAsciiArt(filteredGrayscaleImage, config.table)
+    val filteredAsciiArt = applyFilters(asciiArt, config.asciiFilters)
 
-    val asciiArt: AsciiArt = new GrayscaleToAsciiConverter().convert(filteredGrayscaleImg, config.table)
-    val filteredAsciiArt: AsciiArt = applyFilters(asciiArt, config.asciiFilters)
+    filteredAsciiArt
+  }
 
-    config.image_output.save(filteredAsciiArt)
-    SaveGrayscale.saveGrayscaleImage(filteredGrayscaleImg, "D:\\dev\\university\\images_for_asciiart\\test_output1.png")
+  private def convertToGrayscale(image: RGBImage): GrayscaleImage = {
+    new RgbToGrayscaleConverter(image).convert()
+  }
+
+  private def convertToAsciiArt(image: GrayscaleImage, table: Table): AsciiArt = {
+    new GrayscaleToAsciiConverter(image, config.table).convert()
+  }
+
+  private def loadRgbImage(source: ImageSource): RGBImage = {
+    new SourceToRgbImage(config.imageSource).convert()
   }
 
   private def applyFilters[T <: Image](image: T, filters: Array[_ <: Filter[T]]): T = {

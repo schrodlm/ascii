@@ -10,5 +10,4 @@ class GrayscaleImage(width: Int, height: Int, data: Array[Int]) extends BaseImag
     getGrayscale(getPixel(x, y))
   }
 
-  //def createGrayscalePixel(grayscaleValue: Int, alpha: )
 }

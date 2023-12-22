@@ -7,12 +7,13 @@ object Main{
 
   def main(args: Array[String]): Unit = {
 
-    //Parse Input
     val parser: CommandLineParser = new CommandLineParser(args)
     val config: AsciiArtConfig = parser.parse().getOrElse(return)
 
 
-    val asciiArtFacade = new AsciiArtFacade()
-    asciiArtFacade.processAsciiArt(config)
+    val asciiArtFacade = new AsciiArtFacade(config)
+    val asciiArt = asciiArtFacade.process()
+
+    config.imageOutput.save(asciiArt)
   }
 }

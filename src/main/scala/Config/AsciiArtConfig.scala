@@ -1,6 +1,6 @@
 package Config
 
-import Config.table.{CustomTable, PaulBorkesTable, Table, TableNameMapper}
+import Config.Tables.{CustomTable, DefaultTable, PaulBorkesTable, Table, TableNameMapper}
 import Filter.{AsciiArtFilter, Filter, GrayscaleImageFilter, IdentityFilter, RGBImageFilter}
 import Image.Image
 
@@ -11,14 +11,14 @@ import Image.Image
  * to generate ASCII art, including the source of the image, the output destination,
  * the character table to use, and any image filters.
  *
- * @param image_source The source of the image to be converted into ASCII art.
- * @param image_output The destination for the generated ASCII art output.
+ * @param imageSource The source of the image to be converted into ASCII art.
+ * @param imageOutput The destination for the generated ASCII art output.
  * @param table The character table used for mapping pixel values to characters.
  * @param filters An array of filters to apply to the image before ASCII conversion.
  */
 class AsciiArtConfig private
-                    (val image_source: ImageSource,
-                     val image_output: ImageOutput,
+                    (val imageSource: ImageSource,
+                     val imageOutput: ImageOutput,
                      val table: Table,
                      val asciiFilters: Array[AsciiArtFilter],
                      val grayscaleFilters : Array[GrayscaleImageFilter],
@@ -34,8 +34,8 @@ object AsciiArtConfig{
   class Builder {
     private var imageSource: Option[ImageSource] = None
     private var imageOutput: Option[ImageOutput] = None
-    private var table: Table = new PaulBorkesTable()
-    private var filters: Array[Filter[_ <: Image]] = Array(new IdentityFilter())
+    private var table: Table = new DefaultTable()
+    private var filters: Array[Filter[_ <: Image]] = Array()
 
     private var imageProvided: Boolean = false
     // ========================= Builder setter methods =============================

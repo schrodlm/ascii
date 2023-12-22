@@ -3,6 +3,8 @@ package InputParser
 import Config.{AsciiArtConfig, ConsoleImageOutput, PathImageOutput, PathImageSource, RandomImageSource}
 import Filter.{BrightnessFilter, FlipFilter, FontAspectRatioFilter, InvertFilter, RotationFilter, ScaleFilter}
 
+import scala.util.Try
+
 
 /**
  * A command line parser for configuring ASCII art generation.
@@ -84,21 +86,27 @@ class CommandLineParser(val args: Array[String]) extends Parser {
         val table_chars: Array[Char] = chars.toCharArray
         nextArg(configBuilder.withTable(table_chars), tail)
       case "--rotate" :: degrees :: tail =>
+        throw new NotImplementedError("Rotate is not yet implemented.")
+
         val rotationFilter: RotationFilter = new RotationFilter(degrees.toInt)
         nextArg(configBuilder.addFilter(rotationFilter), tail)
       case "--scale" :: value :: tail =>
-        val scaleFilter: ScaleFilter = new ScaleFilter(value.toInt)
+        val scaleValue = Try(value.toDouble).getOrElse(throw new IllegalArgumentException("Scale value must be a valid number"))
+        val scaleFilter: ScaleFilter = new ScaleFilter(scaleValue)
         nextArg(configBuilder.addFilter(scaleFilter), tail)
       case "--invert" :: tail =>
+        throw new NotImplementedError("Invert is not yet implemented.")
         val invertFilter: InvertFilter = new InvertFilter()
         nextArg(configBuilder.addFilter(invertFilter), tail)
       case "--flip" :: axis :: tail =>
         val flipFilter: FlipFilter = new FlipFilter(axis)
         nextArg(configBuilder.addFilter(flipFilter), tail)
       case "--brightness" :: value :: tail =>
-        val brightnessFilter: BrightnessFilter = new BrightnessFilter(value.toInt)
+        val brightnessValue = Try(value.toInt).getOrElse(throw new IllegalArgumentException("Brightness value must be a valid number"))
+        val brightnessFilter: BrightnessFilter = new BrightnessFilter(brightnessValue)
         nextArg(configBuilder.addFilter(brightnessFilter), tail)
       case "--font-aspect-ratio" :: ratio :: tail =>
+        throw new NotImplementedError("Font aspect ratio is not yet implemented.")
         parseFontAspectRatio(ratio) match {
           case Some((x, y)) =>
             val fontAspectRatioFilter: FontAspectRatioFilter = new FontAspectRatioFilter(x, y)

@@ -1,11 +1,11 @@
 package Conversion
 
-import Config.table.Table
+import Config.Tables.Table
 import Image.{AsciiArt, GrayscaleImage}
 
-class GrayscaleToAsciiConverter() {
+class GrayscaleToAsciiConverter(val image: GrayscaleImage,val table: Table) extends ImageConvertor[AsciiArt] {
 
-  def convert(image: GrayscaleImage, table: Table): AsciiArt = {
+  def convert(): AsciiArt = {
 
     val ascii_data = image.getData().map { value =>
       val grayscaleValue = image.getGrayscale(value)
