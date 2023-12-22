@@ -1,23 +1,19 @@
-package Main
-
-import Config.{AsciiArtConfig, PathImageSource}
-import Image.{Image, ImageFactory}
+import Config.AsciiArtConfig
 import InputParser.CommandLineParser
+import Processing.AsciiArtFacade
 
 
 object Main{
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
 
-    //Parse Input
-    val parser: CommandLineParser = new CommandLineParser(args);
+    val parser: CommandLineParser = new CommandLineParser(args)
+    val config: AsciiArtConfig = parser.parse().getOrElse(return)
 
-    val config: AsciiArtConfig = parser.parse().getOrElse(null)
-    if (config == null) return
 
-    val image: Image = ImageFactory.createImage(config.image_source)
+    val asciiArtFacade = new AsciiArtFacade(config)
+    val asciiArt = asciiArtFacade.process()
 
-    println(s"${image.getWidth()} x ${image.getHeight()}")
-
+    config.imageOutput.save(asciiArt)
   }
 }

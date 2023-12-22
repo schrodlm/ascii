@@ -1,9 +1,10 @@
 package InputParser
 
-import Config.{AsciiArtConfig, AsciiArtConfigBuilder, ConsoleImageOutput, PathImageOutput, PathImageSource, RandomImageSource}
+import Config.{AsciiArtConfig, ConsoleImageOutput, PathImageOutput, PathImageSource, RandomImageSource}
 import Filter.{BrightnessFilter, FlipFilter, FontAspectRatioFilter, InvertFilter, RotationFilter, ScaleFilter}
 
-import scala.sys.exit
+import scala.util.Try
+
 
 /**
  * A command line parser for configuring ASCII art generation.
@@ -15,7 +16,7 @@ import scala.sys.exit
  */
 class CommandLineParser(val args: Array[String]) extends Parser {
 
-  val usage =
+  val usage: String =
     """
       |Usage: asciiart [options] [source]
       |
@@ -29,14 +30,14 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       |    --output-file [path]           Output the ASCII art to a file at the specified path.
       |
       |Optional Options:
-      |  --table [name]                 Specify the name of the predefined character table (e.g., 'default', 'mathematical').
+      |  --table [name]                 Specify the name of the predefined character table ('default', 'mathematical', 'nonlinear-default').
       |  --custom-table [chars]         Define a custom character table.
-      |  --rotate [degrees]             Apply rotation to the image (degrees must be an integer).
+      |  --rotate [degrees]             Apply rotation to the image (degrees must be an integer). ! NOT IMPLEMENTED YET !
       |  --scale [value]                Scale the image by a specified factor (value must be an integer).
-      |  --invert                       Apply an inversion filter to the image.
-      |  --flip [axis]                  Flip the image along a specified axis ('horizontal' or 'vertical').
+      |  --invert                       Apply an inversion filter to the image. ! NOT IMPLEMENTED YET !
+      |  --flip [axis]                  Flip the image along a specified axis ('horizontal' or 'vertical').! NOT IMPLEMENTED YET !
       |  --brightness [value]           Adjust the brightness of the image (value must be an integer).
-      |  --font-aspect-ratio [x:y]      Set the font aspect ratio with two integers (e.g., '1:2').
+      |  --font-aspect-ratio [x:y]      Set the font aspect ratio with two integers (e.g., '1:2'). ! NOT IMPLEMENTED YET !
       |
       |Examples:
       |  asciiart --image /path/to/image.jpg --rotate 90 --output-console
@@ -59,9 +60,8 @@ class CommandLineParser(val args: Array[String]) extends Parser {
       return None
     }
 
-    val configBuilder: AsciiArtConfigBuilder = new AsciiArtConfigBuilder()
-    val filledConfigBuilder : AsciiArtConfigBuilder =  nextArg(configBuilder, args.toList)
-    Some(filledConfigBuilder.build())
+    val configBuilder: AsciiArtConfig.Builder = nextArg(new AsciiArtConfig.Builder(), args.toList)
+    Some(configBuilder.build())
   }
 
   /**
@@ -71,66 +71,56 @@ class CommandLineParser(val args: Array[String]) extends Parser {
    * @param list          the remaining command line arguments to process
    * @return the updated configuration builder
    */
-  def nextArg(configBuilder: AsciiArtConfigBuilder, list: List[String]): AsciiArtConfigBuilder = {
+  def nextArg(configBuilder: AsciiArtConfig.Builder, list: List[String]): AsciiArtConfig.Builder = {
 
     list match {
       case Nil => configBuilder
 
-      case "--image-random" :: tail => {
+      case "--image-random" :: tail =>
         nextArg(configBuilder.withImageSource(RandomImageSource()), tail)
-      }
-
-      case "--image" :: path :: tail => {
+      case "--image" :: path :: tail =>
         nextArg(configBuilder.withImageSource(PathImageSource(path)), tail)
-      }
-
-      case "--table" :: name :: tail => {
+      case "--table" :: name :: tail =>
         nextArg(configBuilder.withTable(name), tail)
-      }
-      case "--custom-table" :: chars :: tail => {
-        val table_chars: Array[Char] = chars.toCharArray()
+      case "--custom-table" :: chars :: tail =>
+        val table_chars: Array[Char] = chars.toCharArray
         nextArg(configBuilder.withTable(table_chars), tail)
-      }
-      case "--rotate" :: degrees :: tail => {
+      case "--rotate" :: degrees :: tail =>
+        throw new NotImplementedError("Rotate is not yet implemented.")
+
         val rotationFilter: RotationFilter = new RotationFilter(degrees.toInt)
         nextArg(configBuilder.addFilter(rotationFilter), tail)
-      }
-      case "--scale" :: value :: tail => {
-        val scaleFilter: ScaleFilter = new ScaleFilter(value.toInt)
+      case "--scale" :: value :: tail =>
+        val scaleValue = Try(value.toDouble).getOrElse(throw new IllegalArgumentException("Scale value must be a valid number"))
+        val scaleFilter: ScaleFilter = new ScaleFilter(scaleValue)
         nextArg(configBuilder.addFilter(scaleFilter), tail)
-      }
-      case "--invert" :: tail => {
+      case "--invert" :: tail =>
+        throw new NotImplementedError("Invert is not yet implemented.")
         val invertFilter: InvertFilter = new InvertFilter()
         nextArg(configBuilder.addFilter(invertFilter), tail)
-      }
-      case "--flip" :: axis :: tail => {
+      case "--flip" :: axis :: tail =>
         val flipFilter: FlipFilter = new FlipFilter(axis)
         nextArg(configBuilder.addFilter(flipFilter), tail)
-      }
-      case "--brightness" :: value :: tail => {
-        val brightnessFilter: BrightnessFilter = new BrightnessFilter(value.toInt)
+      case "--brightness" :: value :: tail =>
+        val brightnessValue = Try(value.toInt).getOrElse(throw new IllegalArgumentException("Brightness value must be a valid number"))
+        val brightnessFilter: BrightnessFilter = new BrightnessFilter(brightnessValue)
         nextArg(configBuilder.addFilter(brightnessFilter), tail)
-      }
-      case "--font-aspect-ratio" :: ratio :: tail => {
+      case "--font-aspect-ratio" :: ratio :: tail =>
+        throw new NotImplementedError("Font aspect ratio is not yet implemented.")
         parseFontAspectRatio(ratio) match {
-          case Some((x, y)) => {
+          case Some((x, y)) =>
             val fontAspectRatioFilter: FontAspectRatioFilter = new FontAspectRatioFilter(x, y)
             nextArg(configBuilder.addFilter(fontAspectRatioFilter), tail)
-          }
           case _ =>
             throw new IllegalArgumentException("Font aspect ration must be in the format 'x:y'.")
         }
-      }
-      case "--output-console" :: tail => {
+      case "--output-console" :: tail =>
         nextArg(configBuilder.withImageOutput(ConsoleImageOutput()), tail)
-      }
-      case "--output-file" :: path :: tail => {
+      case "--output-file" :: path :: tail =>
         nextArg(configBuilder.withImageOutput(PathImageOutput(path)), tail)
-      }
 
       case unknown :: _ =>
-        println("Unknown option " + unknown)
-        exit(1);
+        throw new IllegalArgumentException("Unknown option " + unknown)
     }
   }
 

@@ -1,6 +1,6 @@
 package Filter
-import Image.Image
+import Image.{GrayscaleImage, RGBImage}
 
-class InvertFilter extends Filter {
-  override def apply(image: Image): Image = ???
+class InvertFilter extends GrayscaleImageFilter{
+  override def apply(image: GrayscaleImage): GrayscaleImage = ???
 }

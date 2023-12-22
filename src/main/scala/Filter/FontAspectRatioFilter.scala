@@ -1,6 +1,6 @@
 package Filter
-import Image.Image
+import Image.{AsciiArt}
 
-class FontAspectRatioFilter(val fontAspect : Int, val pixelAspect : Int) extends Filter{
-  override def apply(image: Image): Image = ???
+class FontAspectRatioFilter(val x : Int, val y : Int) extends AsciiArtFilter {
+  override def apply(image: AsciiArt): AsciiArt = ???
 }
