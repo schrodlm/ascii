@@ -22,8 +22,8 @@ class AsciiArtConfigTest extends FlatSpec with Matchers {
       .withFilters(Array(mockAsciiFilter, mockGrayscaleFilter, mockRgbFilter))
       .build()
 
-    config.image_source shouldBe source
-    config.image_output shouldBe output
+    config.imageSource shouldBe source
+    config.imageOutput shouldBe output
     config.table shouldBe a[CustomTable]
     config.asciiFilters should contain theSameElementsAs Array(mockAsciiFilter)
     config.grayscaleFilters should contain theSameElementsAs Array(mockGrayscaleFilter)
@@ -56,8 +56,8 @@ class AsciiArtConfigTest extends FlatSpec with Matchers {
       .withImageOutput(output)
       .build()
 
-    config.image_source shouldBe source
-    config.image_output shouldBe output
+    config.imageSource shouldBe source
+    config.imageOutput shouldBe output
     config.table shouldBe a[DefaultTable]
   }
 
@@ -94,8 +94,8 @@ class AsciiArtConfigTest extends FlatSpec with Matchers {
         .withImageOutput(output)
         .build()
 
-    config.image_source shouldBe source
-    config.image_output shouldBe output
+    config.imageSource shouldBe source
+    config.imageOutput shouldBe output
     config.table shouldBe a[DefaultTable]
     config.asciiFilters shouldBe empty
     config.grayscaleFilters shouldBe empty

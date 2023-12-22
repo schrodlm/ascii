@@ -1,7 +1,7 @@
 package Conversion
 import Image.{GrayscaleImage, RGBImage}
 
-class RgbToGrayscaleConverter(image : RGBImage) extends Convertor[GrayscaleImage]{
+class RgbToGrayscaleConverter(image : RGBImage) extends ImageConvertor[GrayscaleImage]{
 
   override def convert() : GrayscaleImage = {
 

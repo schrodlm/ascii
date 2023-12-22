@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage
 /**
  * Utility class for converting a BufferedImage to the custom Image class.
  */
-class BufferedToRgbConverter(val bufferedImage: BufferedImage) extends Convertor[RGBImage] {
+class BufferedToRgbConverter(val bufferedImage: BufferedImage) extends ImageConvertor[RGBImage] {
 
   /**
    * Converts a BufferedImage to a custom Image class.

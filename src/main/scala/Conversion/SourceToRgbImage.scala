@@ -7,7 +7,7 @@ import Image.RGBImage
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 
-class SourceToRgbImage(input: ImageSource, var loadingStrategy: Option[ImageLoadingStrategy] = None) extends Convertor[RGBImage] {
+class SourceToRgbImage(input: ImageSource, var loadingStrategy: Option[ImageLoadingStrategy] = None) extends ImageConvertor[RGBImage] {
 
   def convert(): RGBImage = {
     if (loadingStrategy.isEmpty) {

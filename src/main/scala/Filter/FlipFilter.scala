@@ -6,8 +6,8 @@ class FlipFilter(val axis: String) extends AsciiArtFilter {
 
   override def apply(image: AsciiArt): AsciiArt = {
     axis.toLowerCase match {
-      case "x" => flipVertically(image)
-      case "y" => flipHorizontally(image)
+      case "x"|"vertical" => flipVertically(image)
+      case "y"|"horizontal" => flipHorizontally(image)
       case _ => throw new IllegalArgumentException("Axis provided for the flip filter must be 'x' or 'y'")
     }
   }
